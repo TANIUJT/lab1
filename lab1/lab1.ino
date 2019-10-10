@@ -36,17 +36,16 @@ void loop() {
  while (1){
    if (firstButton.wasPressed){
       firstBuzzer.playSound();
-      set_rgb(0, 255, 0);
       break;
    // delay (2500);
    }
    if (secondButton.wasPressed){
      secondBuzzer.playSound();
-     set_rgb(0, 255, 0);
      break; 
  //  delay (2500);
    } 
   }
+  set_rgb(0, 255, 0);
   delay (2500);
   set_rgb(0, 0, 255);
   delay (500);
