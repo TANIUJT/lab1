@@ -21,7 +21,7 @@ int notes[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILEN
 double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
 int melodyLength = 8;
 int gameState= GAME_IN_PROGRESS;
-int melodyLengthInMillis=0;
+uint64_t melodyLengthInMillis=0;
 
 void setup() {
     winnerBuzzer.setMelody(notes, durations, melodyLength);
