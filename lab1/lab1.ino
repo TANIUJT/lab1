@@ -15,9 +15,9 @@ Button secondPlayerButton(PIN_BUTTON_PLAYER2);
 Buzzer firstBuzzer(PIN_BUZZER1);
 Buzzer secondBuzzer(PIN_BUZZER2);
 
-int notes[] = {NOTE_G3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
-double durations[] = {8, 8, 1, 8, 1, 8, 1, 24};
-int melodyLength = 8;
+int notes[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
+double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
+int melodyLength = 20;
 bool hasGameEnded=true;
 
 void setup() {
@@ -35,14 +35,12 @@ void loop() {
   }
     else {
      if (firstPlayerButton.wasPressed()){
-        firstBuzzer.turnSoundOn();
         firstBuzzer.playSound();
         hasGameEnded=true;
         set_rgb(0, 255, 0);
         delay(2500);
       }
      if (secondPlayerButton.wasPressed()){
-       secondBuzzer.turnSoundOn();
        secondBuzzer.playSound();
        hasGameEnded=true;
        set_rgb(0, 255, 0);
@@ -53,6 +51,8 @@ void loop() {
   void gameStart(){
    hasGameEnded=false;
    set_rgb (0, 0, 0);
+   firstBuzzer.turnSoundOn();
+   secondBuzzer.turnSoundOn();
    int waitingTime = random(300, 2500);
    delay(waitingTime);
    set_rgb(255, 0, 0);
