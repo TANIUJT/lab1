@@ -18,7 +18,10 @@ public:
         durations = 0;
         melodyLength = 0;
     }
-
+    void setBuzzer (int pinNumber)
+    {
+      pin = pinNumber;
+    }
     void turnSoundOn()
     {
         isEnabled = true;

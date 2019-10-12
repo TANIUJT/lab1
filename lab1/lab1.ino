@@ -9,62 +9,74 @@
 #define R_OUT 10
 #define G_OUT 11
 #define B_OUT 12
+#define GAME_IN_PROGRESS 101
+#define GAME_ENDED 102
+#define PLAYING_MELODY 103
 
 Button firstPlayerButton(PIN_BUTTON_PLAYER1);
 Button secondPlayerButton(PIN_BUTTON_PLAYER2);
-Buzzer firstBuzzer(PIN_BUZZER1);
-Buzzer secondBuzzer(PIN_BUZZER2);
+Buzzer winnerBuzzer(PIN_BUZZER1);
 
 int notes[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
 double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
-int melodyLength = 20;
-bool hasGameEnded=true;
+int melodyLength = 8;
+int gameState= GAME_IN_PROGRESS;
+int melodyLengthInMillis=0;
 
 void setup() {
-    firstBuzzer.setMelody(notes, durations, melodyLength);
-    secondBuzzer.setMelody(notes, durations, melodyLength);
+    winnerBuzzer.setMelody(notes, durations, melodyLength);
     pinMode(R_OUT,OUTPUT);
     pinMode(G_OUT,OUTPUT);
     pinMode(B_OUT,OUTPUT);
+    pinMode(PIN_BUZZER1,OUTPUT);
+    pinMode(PIN_BUZZER2,OUTPUT);
 }
 
 void loop() {
- if(hasGameEnded){
-  gameEnd();
-  gameStart();
+  switch (gameState){
+    case GAME_IN_PROGRESS:
+      if (firstPlayerButton.wasPressed()){
+        buzzerPlay(PIN_BUZZER1);
+        }
+      if (secondPlayerButton.wasPressed()){
+        buzzerPlay(PIN_BUZZER2);
+        } 
+        break;
+      case PLAYING_MELODY: 
+        if(millis()<melodyLengthInMillis){
+          winnerBuzzer.playSound();
+          }
+        else{
+          gameState=GAME_ENDED;
+        }
+        break;
+       case GAME_ENDED:
+        gameEnd();
+        gameStart();
+        gameState=GAME_IN_PROGRESS;
+        break;
+   }
+ }
+  void buzzerPlay(int playerBuzzerNumber){
+         winnerBuzzer.setBuzzer(playerBuzzerNumber);      
+         winnerBuzzer.turnSoundOn();
+         gameState=PLAYING_MELODY;
+         set_rgb(0, 255, 0);
+         melodyLengthInMillis=millis()+2500;
   }
-    else {
-     if (firstPlayerButton.wasPressed()){
-        firstBuzzer.playSound();
-        hasGameEnded=true;
-        set_rgb(0, 255, 0);
-        delay(2500);
-      }
-     if (secondPlayerButton.wasPressed()){
-       secondBuzzer.playSound();
-       hasGameEnded=true;
-       set_rgb(0, 255, 0);
-       delay(2500);
-      } 
-    }
-}
   void gameStart(){
-   hasGameEnded=false;
    set_rgb (0, 0, 0);
-   firstBuzzer.turnSoundOn();
-   secondBuzzer.turnSoundOn();
    int waitingTime = random(300, 2500);
    delay(waitingTime);
    set_rgb(255, 0, 0);
   }
-  void gameEnd(){
-    firstBuzzer.turnSoundOff();
-    secondBuzzer.turnSoundOff();
+  void gameEnd(){  
+    winnerBuzzer.turnSoundOff();
     set_rgb(0, 0, 255);
     delay (1000);
   }
-void set_rgb (int r, int g, int b){
-  analogWrite(R_OUT, 255-r);
-  analogWrite(G_OUT, 255-g);
-  analogWrite(B_OUT, 255-b);
+  void set_rgb (int r, int g, int b){
+    analogWrite(R_OUT, 255-r);
+    analogWrite(G_OUT, 255-g);
+    analogWrite(B_OUT, 255-b);
   }
