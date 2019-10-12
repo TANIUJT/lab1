@@ -17,14 +17,14 @@ Button firstPlayerButton(PIN_BUTTON_PLAYER1);
 Button secondPlayerButton(PIN_BUTTON_PLAYER2);
 Buzzer winnerBuzzer(PIN_BUZZER1);
 
-int notes[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
+int notes1[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
+int notes2[] = {NOTE_A5, NOTE_SILENCE, NOTE_G5, NOTE_SILENCE, NOTE_F5, NOTE_SILENCE, NOTE_DS5, NOTE_SILENCE};
 double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
 int melodyLength = 8;
 int gameState= GAME_IN_PROGRESS;
 uint64_t melodyLengthInMillis=0;
 
 void setup() {
-    winnerBuzzer.setMelody(notes, durations, melodyLength);
     pinMode(R_OUT,OUTPUT);
     pinMode(G_OUT,OUTPUT);
     pinMode(B_OUT,OUTPUT);
@@ -36,9 +36,11 @@ void loop() {
   switch (gameState){
     case GAME_IN_PROGRESS:
       if (firstPlayerButton.wasPressed()){
+        winnerBuzzer.setMelody(notes1,durations,melodyLength);
         buzzerPlay(PIN_BUZZER1);
         }
       if (secondPlayerButton.wasPressed()){
+        winnerBuzzer.setMelody(notes2,durations,melodyLength);
         buzzerPlay(PIN_BUZZER2);
         } 
         break;
