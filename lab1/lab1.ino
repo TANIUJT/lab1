@@ -9,19 +9,21 @@
 #define R_OUT 10
 #define G_OUT 11
 #define B_OUT 12
-#define GAME_IN_PROGRESS 101
-#define GAME_ENDED 102
-#define PLAYING_MELODY 103
 
 Button firstPlayerButton(PIN_BUTTON_PLAYER1);
 Button secondPlayerButton(PIN_BUTTON_PLAYER2);
 Buzzer winnerBuzzer(PIN_BUZZER1);
+enum GameState {
+    GAME_IN_PROGRESS = 101,
+    GAME_ENDED = 102,
+    PLAYING_MELODY = 103
+};
 
 int notes1[] = {NOTE_A3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_F3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
 int notes2[] = {NOTE_A5, NOTE_SILENCE, NOTE_G5, NOTE_SILENCE, NOTE_F5, NOTE_SILENCE, NOTE_DS5, NOTE_SILENCE};
 double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
 int melodyLength = 8;
-int gameState= GAME_IN_PROGRESS;
+GameState gameState= GAME_IN_PROGRESS;
 uint64_t melodyLengthInMillis=0;
 
 void setup() {
