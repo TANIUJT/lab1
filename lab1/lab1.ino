@@ -24,7 +24,8 @@ int notes2[] = {NOTE_A5, NOTE_SILENCE, NOTE_G5, NOTE_SILENCE, NOTE_F5, NOTE_SILE
 double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
 int melodyLength = 8;
 GameState gameState= GAME_IN_PROGRESS;
-uint64_t melodyLengthInMillis=0;
+uint64_t melodyDurationInMillis=2500;
+uint64_t melodyStarted=0;
 
 void setup() {
     pinMode(R_OUT,OUTPUT);
@@ -47,7 +48,7 @@ void loop() {
         } 
         break;
       case PLAYING_MELODY: 
-        if(millis()<melodyLengthInMillis){
+        if(millis()-melodyStarted<melodyDurationInMillis){
           winnerBuzzer.playSound();
           }
         else{
@@ -66,7 +67,7 @@ void loop() {
          winnerBuzzer.turnSoundOn();
          gameState=PLAYING_MELODY;
          set_rgb(0, 255, 0);
-         melodyLengthInMillis=millis()+2500;
+         melodyStarted=millis();
   }
   void gameStart(){
    set_rgb (0, 0, 0);
