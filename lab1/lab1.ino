@@ -15,7 +15,7 @@ int melodyLength = 8;
 
 void setup() {
     buzzer.setMelody(notes, durations, melodyLength);
-    buzzer.turnSoundOn();
+    buzzer.turnSoundOff();
 }
 
 void loop() {
@@ -23,6 +23,6 @@ void loop() {
     buzzer.playSound();
     if (buttonOff.wasPressed())
     {
-        buzzer.turnSoundOff();
+        buzzer.turnSoundOn();
     }
 }
