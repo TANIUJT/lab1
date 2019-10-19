@@ -28,7 +28,6 @@ uint64_t melodyDurationInMillis=2500;
 uint64_t melodyStarted=0;
 
 void setup() {
-<<<<<<< HEAD
     pinMode(R_OUT,OUTPUT);
     pinMode(G_OUT,OUTPUT);
     pinMode(B_OUT,OUTPUT);
