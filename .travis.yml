@@ -12,6 +12,7 @@ install:
   - sudo make install
   - sudo easy_install `cat requirements.txt`
   - cd ..
+  - cd /lab1/lab1
   #- cd $my_github
 
 script: 
