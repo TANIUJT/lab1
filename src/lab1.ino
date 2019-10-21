@@ -67,7 +67,7 @@ void loop() {
          winnerBuzzer.turnSoundOn();
          gameState=PLAYING_MELODY;
          set_rgb(0, 255, 0);
-         melodyStarted=millis();
+         melodyBeginningTime=millis();
   }
   void gameStart(){
    set_rgb (0, 0, 0);
