@@ -25,7 +25,7 @@ double durations[] = {4, 1, 4, 1, 4, 1, 4, 1};
 int melodyLength = 8;
 GameState gameState= GAME_IN_PROGRESS;
 uint64_t melodyDurationInMillis=2500;
-uint64_t melodyStarted=0;
+uint64_t melodyBeginningTime=0;
 
 void setup() {
     pinMode(R_OUT,OUTPUT);
@@ -48,7 +48,7 @@ void loop() {
         } 
         break;
       case PLAYING_MELODY: 
-        if(millis()-melodyStarted<melodyDurationInMillis){
+        if(millis()-melodyBeginningTime<melodyDurationInMillis){
           winnerBuzzer.playSound();
           }
         else{
