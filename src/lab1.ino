@@ -71,7 +71,7 @@ void loop() {
   }
   void gameStart(){
    set_rgb (0, 0, 0);
-   int waitingTime = random(300, 2500);
+   int waitingTime = random(1000, 2500);
    delay(waitingTime);
    set_rgb(255, 0, 0);
   }
