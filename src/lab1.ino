@@ -78,7 +78,7 @@ void loop() {
   void gameEnd(){  
     winnerBuzzer.turnSoundOff();
     set_rgb(0, 0, 255);
-    delay (1000);
+    delay (500);
   }
   void set_rgb (int r, int g, int b){
     analogWrite(R_OUT, 255-r);
