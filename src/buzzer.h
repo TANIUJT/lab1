@@ -1,7 +1,7 @@
 #pragma once
 
 #define BUZZER_NOTE_DURATION 100
-
+//1
 class Buzzer
 {
 public:
